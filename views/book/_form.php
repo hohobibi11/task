@@ -14,32 +14,37 @@ use app\models\Author;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) 
+        ->input('title',['placeholder' => 'The Book\'s Title'])
+    ?>
 
-    <?= $form->field($model, 'isbn')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'isbn')->textInput(['maxlength' => true])
+        ->input('isbn',['placeholder' => 'The Book\'s ISBN code'])
+     ?>
 
-    <?= $form->field($model, 'date_pub')->textInput() ?>
+    <?= $form->field($model, 'date_pub')->textInput()
+        ->input('date_pub',['placeholder' => 'YYYY/MM/DD'])
+     ?>
 
-    <?= isset($model->id) ?
-        $form->field($model, 'authors')->dropDownList(
+    <?=$form->field($model, 'authorIds')->dropDownList(
             ArrayHelper::map(Author::find()->all(),'id','fullName'),
          [  
           'multiple'=>'multiple',
          ]             
-        )->label("Add Authors (hold CTRL key for multiple choices)") 
-        :
-        $form->field($model, 'authors')->dropDownList(
-            ArrayHelper::map(Author::find()->all(),'id','fullName'),
-         [ 
-          'options'=> ArrayHelper::map($model->authors,'id','fullName'), 
-          'multiple'=>'multiple',
-         ]             
-        )->label("Add Authors (hold CTRL key for multiple choices)")  
+        ) 
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= 
+          Html::submitButton('Save', ['class' => 'btn btn-success']) 
+        ?>
+        <?=  
+          Html::a('Create New Author', ['author/create'], ['target'=>'_blank','class' => 'btn btn-info']) 
+        ?>
+
     </div>
+    <div class="clearfix"></div>
+    
 
     <?php ActiveForm::end(); ?>
 

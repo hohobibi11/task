@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Book */
@@ -28,11 +30,55 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+
             'title',
             'isbn',
             'date_pub',
         ],
     ]) ?>
+
+    <h2>Book Authors</h2>
+     <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        //'filterModel' => $searchModel,
+        'columns' => [
+            //['class' => 'yii\grid\SerialColumn'],
+
+            'name',
+            'f_name',
+            'birth',
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}{update}{delete}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                    'title' => Yii::t('app', 'Author-view'),
+                                        ]);
+                            },
+
+                    'update' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                        'title' => Yii::t('app', 'Author-update'),
+                                            ]);
+                                },
+                    'delete' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                        'title' => Yii::t('app', 'Author-delete'),
+                                            ]);
+                                }
+
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                                    
+                                        $url = Url::toRoute(['author/'.$action, 'id' => $model->id]);
+                                        return $url;
+                                }
+            ],
+        ],
+    ]); ?>
+
 
 </div>

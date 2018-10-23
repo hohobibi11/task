@@ -38,7 +38,10 @@ class Author extends \yii\db\ActiveRecord
         return [
             [['name', 'f_name', 'birth'], 'required'],
             [['birth'], 'safe'],
+            [['birth'],'date', 'format' => 'php:Y-m-d'],
             [['name', 'f_name'], 'string', 'max' => 45],
+            [['name','f_name'],'match', 'pattern'=>'/[a-zA-Z\-\'\s]{3,}/'],
+
         ];
     }
 

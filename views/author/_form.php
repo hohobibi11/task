@@ -12,11 +12,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])
+    	->input('name',['placeholder' => 'The Author\'s Name'])
+     ?>
 
-    <?= $form->field($model, 'f_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'f_name')->textInput(['maxlength' => true])
+    	->input('f_name',['placeholder' => 'The Author\'s Familly Name'])
+     ?>
 
-    <?= $form->field($model, 'birth')->textInput() ?>
+    <?= $form->field($model, 'birth')->textInput()
+    	->input('birth',['placeholder' => 'YYYY/MM/DD']) 
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
